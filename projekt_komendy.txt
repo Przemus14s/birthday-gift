@@ -1,0 +1,45 @@
+# Komendy użyte do zrobienia projektu
+
+# 1) Sprawdzenie zainstalowanej Javy i Maven
+java -version
+where java
+where mvn
+
+# 2) Szukanie lokalnej instalacji Maven na komputerze
+Get-ChildItem -Path 'C:\' -Filter 'mvn.cmd' -Recurse -ErrorAction SilentlyContinue | Select-Object -First 20 | ForEach-Object { $_.FullName }
+
+# 3) Sprawdzenie czy projekt kompiluje i czy Maven jest dostępny
+& 'C:\Users\przem\.m2\wrapper\dists\apache-maven-3.9.9-bin\4nf9hui3q3djbarqar9g711ggc\apache-maven-3.9.9\bin\mvn.cmd' -version
+
+# 4) Wejście do katalogu projektu
+cd C:\Users\przem\IdeaProjects\prezencik
+
+# 5) Uruchomienie testów/build projektu
+& 'C:\Users\przem\.m2\wrapper\dists\apache-maven-3.9.9-bin\4nf9hui3q3djbarqar9g711ggc\apache-maven-3.9.9\bin\mvn.cmd' test -q
+
+# 6) Uruchomienie aplikacji Spring Boot
+& 'C:\Users\przem\.m2\wrapper\dists\apache-maven-3.9.9-bin\4nf9hui3q3djbarqar9g711ggc\apache-maven-3.9.9\bin\mvn.cmd' spring-boot:run -q
+
+# 7) Sprawdzenie czy strona działa w przeglądarce (HTTP)
+Invoke-WebRequest -Uri 'http://localhost:8080' -UseBasicParsing
+
+# 8) Potwierdzenie działania po poprawkach CSS
+Invoke-WebRequest -Uri 'http://localhost:8080' -UseBasicParsing | Out-Null; Write-Host 'OK'
+
+# 9) Dodatkowe sprawdzenie katalogów projektu
+New-Item -ItemType Directory -Force -Path 'C:\Users\przem\IdeaProjects\prezencik\src\main\resources\templates' | Out-Null
+
+# 10) Wersja komendy do uruchamiania z katalogu projektu (najważniejsza)
+cd /d C:\Users\przem\IdeaProjects\prezencik
+"C:\Users\przem\.m2\wrapper\dists\apache-maven-3.9.9-bin\4nf9hui3q3djbarqar9g711ggc\apache-maven-3.9.9\bin\mvn.cmd" spring-boot:run
+
+# 11) Jeśli chcesz sprawdzić lokalny HTML strony w terminalu
+curl http://localhost:8080
+
+# 12) Dodatkowe polecenia wykonane podczas diagnostyki projektu
+Get-ChildItem -Path 'C:\Users\przem\IdeaProjects\prezencik' -Force
+Get-ChildItem -Path 'C:\Users\przem\IdeaProjects\prezencik\src' -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path 'C:\Users\przem\IdeaProjects\prezencik\src\main\resources' -Recurse -ErrorAction SilentlyContinue
+Get-Content -Path 'C:\Users\przem\IdeaProjects\prezencik\pom.xml' -TotalCount 80
+$env:JAVA_HOME
+
